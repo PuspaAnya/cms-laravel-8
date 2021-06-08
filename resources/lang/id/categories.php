@@ -9,6 +9,12 @@ return [
         'edit' => 'Ubah kategori',
         'detail' => 'Detail kategori',
     ],
+    'label' => [
+        'no_data' => [
+            'fetch' => "Data kategori belum ada",
+            'search' => "Kategori :keyword tidak ditemukan",
+        ]
+    ],
     'form_control' => [
         'input' => [
             'title' => [

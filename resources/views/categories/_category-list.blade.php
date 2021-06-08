@@ -28,7 +28,7 @@
         </form>
     </div>
     <!-- todo:show subcategory -->
-    @if ($category->descendants)
+    @if ($category->descendants && !trim(request()->get('keyword')))
     @include('categories._category-list', [
     'categories' => $category->descendants,
     'count' => $count + 2

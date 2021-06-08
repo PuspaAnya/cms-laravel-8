@@ -41,12 +41,29 @@
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     <!-- list category -->
+                    @if (count($categories))
                     @include('categories._category-list', [
                     'categories' => $categories,
                     'count' => 0
                     ])
+                    @else
+                    <p>
+                        <strong>
+                            @if (request()->get('keyword'))
+                            {{ trans('categories.label.no_data.search', ['keyword' => request()->get('keyword')]) }}
+                            @else
+                            {{ trans('categories.label.no_data.fetch') }}
+                            @endif
+                        </strong>
+                    </p>
+                    @endif
                 </ul>
             </div>
+            @if ($categories->hasPages())
+            <div class="card-footer">
+                {{ $categories->links('vendor.pagination.bootstrap-4') }}
+            </div>
+            @endif
         </div>
     </div>
 </div>

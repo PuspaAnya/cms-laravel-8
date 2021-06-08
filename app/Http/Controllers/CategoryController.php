@@ -14,10 +14,18 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::onlyParent()->with('descendants')->get();
-        return view('categories.index', compact('categories'));
+        $categories = Category::with('descendants');
+
+        if ($request->has('keyword') && trim($request->keyword)) {
+            $categories->search($request->keyword);
+        } else {
+            $categories->onlyParent();
+        }
+        return view('categories.index', [
+            'categories' => $categories->paginate(5)->appends(['keyword' => $request->get('keyword')]),
+        ]);
     }
 
     public function select(Request $request)
